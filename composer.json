@@ -1,0 +1,13 @@
+{
+    "name": "impoc/bekevich_itrvb",
+    "description": "-",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "fakerphp/faker": "2.0.x-dev"
+    }
+}
