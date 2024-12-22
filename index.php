@@ -5,7 +5,7 @@ require 'Autoload.php';
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Repositories\PostRepository;
+use App\Repositories\PostsRepository;
 use App\Repositories\CommentsRepository;
 
 use Faker\Factory;
@@ -15,7 +15,7 @@ $faker = Factory::create();
 
 $pdo = new PDO('sqlite:database.sqlite');
 
-$postsRepository = new PostRepository($pdo);
+$postsRepository = new PostsRepository($pdo);
 $commentsRepository = new CommentsRepository($pdo);
 
 $post = new Post(Uuid::uuid4()->toString(), Uuid::uuid4()->toString(), $faker->jobTitle, $faker->text);

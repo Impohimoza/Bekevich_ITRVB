@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Comment;
 use App\Repositories\Interfaces\CommentsRepositoryInterface;
 use PDO;
+use Exception;
 
 
 class CommentsRepository implements CommentsRepositoryInterface
@@ -22,7 +23,7 @@ class CommentsRepository implements CommentsRepositoryInterface
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$row) {
-            return null;
+            throw new Exception('Comment not found');
         }
 
         return new Comment($row['uuid'], $row['author_uuid'], $row['post_uuid'], $row['text']);
