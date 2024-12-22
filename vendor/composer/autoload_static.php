@@ -8,9 +8,14 @@ class ComposerStaticInit272549cc0a7c6636f33d51652960e746
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+        ),
         'P' => 
         array (
             'Psr\\Container\\' => 14,
@@ -19,6 +24,10 @@ class ComposerStaticInit272549cc0a7c6636f33d51652960e746
         array (
             'Faker\\' => 6,
         ),
+        'B' => 
+        array (
+            'Brick\\Math\\' => 11,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -26,6 +35,10 @@ class ComposerStaticInit272549cc0a7c6636f33d51652960e746
     );
 
     public static $prefixDirsPsr4 = array (
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -33,6 +46,10 @@ class ComposerStaticInit272549cc0a7c6636f33d51652960e746
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src',
+        ),
+        'Brick\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brick/math/src',
         ),
         'App\\' => 
         array (

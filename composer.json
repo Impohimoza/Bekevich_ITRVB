@@ -8,6 +8,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "fakerphp/faker": "2.0.x-dev"
+        "fakerphp/faker": "2.0.x-dev",
+        "ramsey/uuid": "5.x-dev"
     }
 }

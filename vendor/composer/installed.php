@@ -10,6 +10,15 @@
         'dev' => true,
     ),
     'versions' => array(
+        'brick/math' => array(
+            'pretty_version' => '0.11.0',
+            'version' => '0.11.0.0',
+            'reference' => '0ad82ce168c82ba30d1c01ec86116ab52f589478',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../brick/math',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'fakerphp/faker' => array(
             'pretty_version' => '2.0.x-dev',
             'version' => '2.0.9999999.9999999-dev',
@@ -38,6 +47,21 @@
                 0 => '2.0.x-dev',
             ),
             'dev_requirement' => false,
+        ),
+        'ramsey/uuid' => array(
+            'pretty_version' => '5.x-dev',
+            'version' => '5.9999999.9999999.9999999-dev',
+            'reference' => 'd04a1b479e9b9e9fc51fc81e3ac2fda83d41c1e9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ramsey/uuid',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'rhumsaa/uuid' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '5.x-dev',
+            ),
         ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'dev-main',
