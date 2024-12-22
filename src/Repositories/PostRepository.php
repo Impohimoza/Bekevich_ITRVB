@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use App\Repositories\Interfaces\PostsRepositoryInterface;
 use PDO;
 
 
