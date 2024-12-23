@@ -6,15 +6,18 @@ use App\Models\Post;
 use App\Repositories\Interfaces\PostsRepositoryInterface;
 use PDO;
 use Exception;
+use Psr\Log\LoggerInterface;
 
 
 class PostsRepository implements PostsRepositoryInterface
 {
     private PDO $db;
+    private LoggerInterface $logger;
 
-    public function __construct(PDO $db)
+    public function __construct(PDO $db, LoggerInterface $logger)
     {
         $this->db = $db;
+        $this->logger = $logger;
     }
 
     public function get(string $uuid): ?Post {
@@ -24,6 +27,7 @@ class PostsRepository implements PostsRepositoryInterface
 
         if (!$row) {
             throw new Exception('Post not found');
+            $this->logger->warning('No post found', ['postUuid' => $uuid]);
         }
 
         return new Post($row['uuid'], $row['author_uuid'], $row['title'], $row['text']);
@@ -39,6 +43,8 @@ class PostsRepository implements PostsRepositoryInterface
             'title' => $post->title,
             'text' => $post->text,
         ]);
+
+        $this->logger->info('Post saved', ['uuid' => $post->uuid]);
     }
 
     public function delete(string $uuid): void 
@@ -49,6 +55,7 @@ class PostsRepository implements PostsRepositoryInterface
         ]);
 
         if ($stmt->rowCount() === 0) {
+            $this->logger->warning('No post found', ['postUuid' => $uuid]);
             throw new Exception("Post with uuid $uuid not found");
         }
     }

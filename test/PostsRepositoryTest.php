@@ -3,12 +3,14 @@
 use PHPUnit\Framework\TestCase;
 use App\Models\Post;
 use App\Repositories\PostsRepository;
+use Test\Utils\TestLogger;
 
 
 class PostsRepositoryTest extends TestCase
 {
     private PostsRepository $repository;
     private PDO $pdo;
+    private TestLogger $logger;
 
     protected function setUp(): void
     {
@@ -22,7 +24,8 @@ class PostsRepositoryTest extends TestCase
             );
         ");
 
-        $this->repository = new PostsRepository($this->pdo);
+        $this->logger = new TestLogger();
+        $this->repository = new PostsRepository($this->pdo, $this->logger);
     }
 
     public function testPostIsSavedInRepository(): void 

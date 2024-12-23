@@ -6,15 +6,18 @@ use App\Models\Comment;
 use App\Repositories\Interfaces\CommentsRepositoryInterface;
 use PDO;
 use Exception;
+use Psr\Log\LoggerInterface;
 
 
 class CommentsRepository implements CommentsRepositoryInterface
 {
     private PDO $db;
+    private LoggerInterface $logger;
 
-    public function __construct(PDO $db)
+    public function __construct(PDO $db, LoggerInterface $logger)
     {
         $this->db = $db;
+        $this->logger = $logger;
     }
 
     public function get(string $uuid): ?Comment {
@@ -24,6 +27,7 @@ class CommentsRepository implements CommentsRepositoryInterface
 
         if (!$row) {
             throw new Exception('Comment not found');
+            $this->logger->warning('No comment found', ['commentUuid' => $uuid]);
         }
 
         return new Comment($row['uuid'], $row['author_uuid'], $row['post_uuid'], $row['text']);
@@ -39,5 +43,7 @@ class CommentsRepository implements CommentsRepositoryInterface
             'author' => $comment->authorId,
             'text' => $comment->text,
         ]);
+
+        $this->logger->info('Comment saved', ['uuid' => $comment->uuid]);
     }
 }

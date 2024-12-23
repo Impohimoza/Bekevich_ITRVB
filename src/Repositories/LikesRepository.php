@@ -6,14 +6,18 @@ use App\Models\PostLike;
 use App\Models\CommentLike;
 use App\Repositories\Interfaces\LikesRepositoryInterface;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 class LikesRepository implements LikesRepositoryInterface
 {
     private PDO $db;
+    private LoggerInterface $logger;
 
-    public function __construct(PDO $db)
+    public function __construct(PDO $db, LoggerInterface $logger)
     {
         $this->db = $db;
+
+        $this->logger = $logger;
     }
 
     public function savePostLike(PostLike $like): void
@@ -26,6 +30,8 @@ class LikesRepository implements LikesRepositoryInterface
             'post_uuid' => $like->postId,
             'author_uuid' => $like->authorId,
         ]);
+
+        $this->logger->info('PostLike saved', ['uuid' => $like->uuid]);
     }
 
     public function getByPostUuid(string $postUuid): array
@@ -45,6 +51,8 @@ class LikesRepository implements LikesRepositoryInterface
             'comment_uuid' => $like->commentId,
             'author_uuid' => $like->authorId,
         ]);
+
+        $this->logger->info('CommentLike saved', ['uuid' => $like->uuid]);
     }
 
     public function getByCommentUuid(string $commentUuid): array

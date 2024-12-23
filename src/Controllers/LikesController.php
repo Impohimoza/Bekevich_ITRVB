@@ -10,6 +10,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use PDO;
 use Ramsey\Uuid\Uuid;
 use Exception;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class LikesController
 {
@@ -17,7 +19,9 @@ class LikesController
 
     public function __construct()
     {
-        $this->repository= new LikesRepository(new PDO('sqlite:database.sqlite'));
+        $logger = new Logger('likes');
+        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/app.log', Logger::INFO));
+        $this->repository= new LikesRepository(new PDO('sqlite:database.sqlite'), $logger);
     }
 
     public function createPostLike(Request $request, Response $response)

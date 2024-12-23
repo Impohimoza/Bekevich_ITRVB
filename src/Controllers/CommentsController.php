@@ -8,6 +8,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use PDO;
 use Ramsey\Uuid\Uuid;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class CommentsController
 {
@@ -15,7 +17,9 @@ class CommentsController
 
     public function __construct()
     {
-        $this->repository= new CommentsRepository(new PDO('sqlite:database.sqlite'));
+        $logger = new Logger('comments');
+        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/app.log', Logger::INFO));
+        $this->repository= new CommentsRepository(new PDO('sqlite:database.sqlite'), $logger);
     }
 
     public function addComment (Request $request, Response $response): Response

@@ -1,8 +1,8 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
 use App\Models\Comment;
 use App\Repositories\CommentsRepository;
+use Test\Utils\TestLogger;
 
 
 class CommentsRepositoryTest extends TestCase
@@ -22,7 +22,7 @@ class CommentsRepositoryTest extends TestCase
             );
         ");
 
-        $this->repository = new CommentsRepository($this->pdo);
+        $this->repository = new CommentsRepository($this->pdo, new TestLogger());
     }
 
     public function testCommentIsSavedInRepository(): void {

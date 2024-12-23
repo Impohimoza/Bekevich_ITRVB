@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use PDO;
 use Ramsey\Uuid\Uuid;
 use Exception;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class PostsController
 {
@@ -16,7 +18,9 @@ class PostsController
 
     public function __construct()
     {
-        $this->repository= new PostsRepository(new PDO('sqlite:database.sqlite'));
+        $logger = new Logger('posts');
+        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/app.log', Logger::INFO));
+        $this->repository= new PostsRepository(new PDO('sqlite:database.sqlite'), $logger);
     }
 
     public function addPost (Request $request, Response $response): Response
