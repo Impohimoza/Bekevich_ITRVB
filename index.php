@@ -1,31 +1,14 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-require 'Autoload.php';
 
-use App\Models\User;
-use App\Models\Comment;
-use App\Models\Post;
-use App\Repositories\PostsRepository;
-use App\Repositories\CommentsRepository;
+use Slim\Factory\AppFactory;
+use App\Controllers\CommentsController;
+use App\Controllers\PostsController;
 
-use Faker\Factory;
-use Ramsey\Uuid\Uuid;
+$app = AppFactory::create();
 
-$faker = Factory::create();
+$app->post('/posts/comment', [CommentsController::class, 'addComment']);
+$app->post('/posts', [PostsController::class, 'addPost']);
+$app->delete('/posts', [PostsController::class, 'deletePost']);
 
-$pdo = new PDO('sqlite:database.sqlite');
-
-$postsRepository = new PostsRepository($pdo);
-$commentsRepository = new CommentsRepository($pdo);
-
-$post = new Post(Uuid::uuid4()->toString(), Uuid::uuid4()->toString(), $faker->jobTitle, $faker->text);
-$postsRepository->save($post); 
-
-$getPost = $postsRepository-> get($post->uuid);
-echo "{$post->uuid} {$getPost->title} {$getPost->text} <br>";
-
-$comment = new Comment(Uuid::uuid4()->toString(), Uuid::uuid4()->toString(), $getPost->uuid, $faker->text);
-$commentsRepository->save($comment);
-
-$getComment = $commentsRepository-> get($comment->uuid);
-echo "{$getComment->postId} {$getComment->text}";
+$app->run();

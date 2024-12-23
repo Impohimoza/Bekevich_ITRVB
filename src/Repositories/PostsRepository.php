@@ -40,4 +40,16 @@ class PostsRepository implements PostsRepositoryInterface
             'text' => $post->text,
         ]);
     }
+
+    public function delete(string $uuid): void 
+    {
+        $stmt = $this->db->prepare('DELETE FROM posts WHERE uuid = :uuid');
+        $stmt->execute([
+            'uuid' => $uuid
+        ]);
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Post with uuid $uuid not found");
+        }
+    }
 }
